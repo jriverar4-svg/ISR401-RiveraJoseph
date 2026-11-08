@@ -1,0 +1,36 @@
+\section{Identificación y reformulación de requisitos de calidad}
+
+Los requisitos de calidad seleccionados contienen expresiones generales que no permiten comprobar objetivamente su cumplimiento. Algunas palabras utilizadas, como «rápida», «seguros», «fácil», «siempre» y «sin problemas», no establecen condiciones específicas para determinar si el sistema cumple con lo solicitado.
+
+Según la ISO/IEC/IEEE 29148:2018, los requisitos deben expresar las necesidades de manera clara, precisa y sin ambigüedades, de forma que puedan ser evaluados y verificados~\cite{iso29148}. Por este motivo, es necesario reformular los enunciados seleccionados, incorporando métricas, unidades y umbrales que permitan comprobar su cumplimiento.
+
+% La tabla se presenta en una página horizontal para que sus siete columnas sean legibles.
+\begin{landscape}
+\begingroup
+\footnotesize
+\setlength{\tw}{\dimexpr\linewidth-14\tabcolsep-8\arrayrulewidth\relax}
+\begin{longtable}{|L{0.05\tw}|L{0.135\tw}|L{0.195\tw}|L{0.26\tw}|L{0.13\tw}|L{0.09\tw}|L{0.14\tw}|}
+\caption{Identificación y reformulación de requisitos de calidad.}\label{tab:calidad}\\
+\hline
+\filaencabezado \encabezado{Código} & \encabezado{Requisito original} & \encabezado{Motivo por el que es vago} & \encabezado{Requisito reformulado} & \encabezado{Métrica} & \encabezado{Unidad} & \encabezado{Umbral} \\ \hline
+\endfirsthead
+\multicolumn{7}{@{}l}{\footnotesize\itshape Continuación de la Tabla~\thetable} \\ \hline
+\filaencabezado \encabezado{Código} & \encabezado{Requisito original} & \encabezado{Motivo por el que es vago} & \encabezado{Requisito reformulado} & \encabezado{Métrica} & \encabezado{Unidad} & \encabezado{Umbral} \\ \hline
+\endhead
+\hline \multicolumn{7}{r}{\footnotesize\itshape Continúa en la página siguiente} \\
+\endfoot
+\hline
+\endlastfoot
+
+E03 & La aplicación debe ser rápida. & La palabra «rápida» es subjetiva y no establece cuánto tiempo puede tardar una operación. Tampoco indica bajo qué condiciones debe medirse el rendimiento. Por esta razón, diferentes usuarios podrían tener opiniones distintas sobre si la aplicación responde adecuadamente. & La plataforma deberá responder a las operaciones de consulta de disponibilidad, visualización de horarios y reserva de citas en un máximo de 2 segundos para al menos el 95~\% de las solicitudes, bajo una carga de 300 usuarios concurrentes. & Tiempo de respuesta y porcentaje de solicitudes dentro del límite. & Segundos y porcentaje. & Máximo 2 segundos para al menos el 95~\% de las solicitudes. \\ \hline
+E07 & Los datos de salud de los pacientes deben ser seguros. & La palabra «seguros» no especifica qué mecanismos deben utilizarse para proteger la información ni qué situaciones se deben evitar. No establece cómo se comprobará que personas no autorizadas no puedan consultar o modificar los datos médicos. & La plataforma deberá controlar el acceso a la información médica mediante autenticación y permisos según el rol del usuario. En las pruebas de seguridad, ningún usuario sin autorización deberá poder consultar o modificar información médica. & Número de accesos no autorizados exitosos. & Cantidad de accesos. & 0 accesos no autorizados exitosos. \\ \hline
+E10 & La plataforma debe ser fácil de utilizar para pacientes adultos mayores. & La expresión «fácil de utilizar» depende de la experiencia y las capacidades de cada persona. El enunciado no indica qué actividad deben completar los adultos mayores ni cuánto tiempo deberían necesitar para realizarla. & Al menos el 90~\% de los pacientes adultos mayores que participen en las pruebas deberá completar una reserva de cita sin asistencia externa y en un tiempo máximo de 3 minutos. & Porcentaje de usuarios que completan la tarea sin ayuda y tiempo de realización. & Porcentaje y minutos. & Al menos 90~\% de éxito y máximo 3 minutos. \\ \hline
+E14 & La plataforma debe estar siempre disponible. & La expresión «siempre disponible» no establece un porcentaje de disponibilidad ni un periodo para medirlo. Tampoco define cómo se tratarán los mantenimientos programados o las interrupciones del servicio. & La plataforma deberá mantener una disponibilidad mensual mínima del 99,5~\%, medida mediante el monitoreo del servicio. Los periodos de mantenimiento programado y comunicados previamente no se considerarán dentro del tiempo de indisponibilidad. & Porcentaje de disponibilidad mensual. & Porcentaje. & Mínimo 99,5~\% mensual. \\ \hline
+E18 & La plataforma debe integrarse sin problemas con el sistema de facturación. & La expresión «sin problemas» es imprecisa porque no establece qué información debe intercambiarse, cuánto puede tardar la comunicación ni qué cantidad de errores sería aceptable. Por esta razón, no existe una condición objetiva para verificar que la integración funciona correctamente. & La plataforma deberá intercambiar la información requerida con el sistema de facturación existente mediante sus servicios web documentados. Al menos el 99~\% de las operaciones de intercambio realizadas durante las pruebas de integración deberá completarse correctamente, sin pérdida ni duplicación de información. & Porcentaje de operaciones de intercambio completadas correctamente. & Porcentaje. & Mínimo 99~\% de operaciones exitosas. \\ \hline
+\end{longtable}
+\endgroup
+\end{landscape}
+
+Los valores establecidos en las reformulaciones son propuestas para el proyecto del Policlínico Ribera del Quevedo. Se definieron tomando en cuenta las necesidades del servicio, la cantidad de usuarios que podrían utilizar la plataforma y las condiciones de funcionamiento descritas en el caso.
+
+Las métricas permiten comprobar aspectos concretos, como el tiempo de respuesta, la protección de los datos, la facilidad de uso, la disponibilidad y el intercambio de información. Los umbrales propuestos sirven como criterios de aceptación para evaluar si la plataforma cumple con los niveles esperados. Estos valores no están establecidos directamente por ISO/IEC 25010:2023; la norma se utiliza como referencia para identificar las características y subcaracterísticas de calidad correspondientes~\cite{iso25010}.

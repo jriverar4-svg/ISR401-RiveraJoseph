@@ -1,0 +1,48 @@
+\section{Clasificación de los requisitos}
+
+Para realizar la clasificación se consideran tres aspectos: el tipo de requisito, su relación con el producto o el proceso y el nivel al que se aplica, es decir, al sistema completo o específicamente al software.
+
+La ISO/IEC/IEEE 29148:2018 establece criterios para la ingeniería de requisitos y contempla la especificación de necesidades, funciones, restricciones y condiciones que debe cumplir una solución. También proporciona criterios para que los requisitos estén redactados de manera clara, precisa y verificable~\cite{iso29148}.
+
+Por otro lado, la ISO/IEC 25010:2023 presenta un modelo de calidad del producto compuesto por nueve características y sus respectivas subcaracterísticas. Este modelo permite identificar y evaluar las propiedades de calidad que debe cumplir un producto de software o un sistema~\cite{iso25010}.
+
+\begingroup
+\footnotesize
+\setlength{\tw}{\dimexpr\linewidth-10\tabcolsep-6\arrayrulewidth\relax}
+\begin{longtable}{|L{0.08\tw}|L{0.23\tw}|L{0.12\tw}|L{0.12\tw}|L{0.45\tw}|}
+\caption{Clasificación de los requisitos E01--E20.}\label{tab:clasificacion}\\
+\hline
+\filaencabezado \encabezado{Código} & \encabezado{Tipo de requisito y característica ISO/IEC 25010:2023} & \encabezado{Producto / proceso} & \encabezado{Sistema / software} & \encabezado{Justificación} \\ \hline
+\endfirsthead
+\multicolumn{5}{@{}l}{\footnotesize\itshape Continuación de la Tabla~\thetable} \\ \hline
+\filaencabezado \encabezado{Código} & \encabezado{Tipo de requisito y característica ISO/IEC 25010:2023} & \encabezado{Producto / proceso} & \encabezado{Sistema / software} & \encabezado{Justificación} \\ \hline
+\endhead
+\hline \multicolumn{5}{r}{\footnotesize\itshape Continúa en la página siguiente} \\
+\endfoot
+\hline
+\endlastfoot
+
+E01 & Funcional & Producto & Software & Establece la operación que permite al paciente reservar una cita seleccionando especialidad, médico, fecha y hora. Describe una función que debe ofrecer la aplicación~\cite{iso29148}. \\ \hline
+E02 & Funcional & Producto & Software & Especifica el envío automático de un recordatorio por SMS antes de la cita. Se trata de una función que debe ejecutar la plataforma~\cite{iso29148}. \\ \hline
+E03 & Calidad: eficiencia de desempeño – comportamiento temporal & Producto & Software & Se refiere al tiempo que tarda la aplicación en responder. El comportamiento temporal contempla los tiempos de respuesta y las tasas de procesamiento que debe cumplir el producto bajo determinadas condiciones~\cite{iso25010}. \\ \hline
+E04 & Funcional & Producto & Software & Define la posibilidad de registrar la llegada de un paciente desde recepción. Es una operación concreta que debe permitir el sistema~\cite{iso29148}. \\ \hline
+E05 & Restricción tecnológica & Producto & Software & Obliga a utilizar Java 21 y PostgreSQL, por lo que limita las tecnologías que pueden seleccionarse para implementar el software. Se considera una condición impuesta a la solución~\cite{iso29148}. \\ \hline
+E06 & Funcional & Producto & Software & Establece que el médico puede consultar los pacientes programados para el día y registrar si fueron atendidos. Describe funciones que debe ofrecer la aplicación~\cite{iso29148}. \\ \hline
+E07 & Calidad: seguridad – confidencialidad e integridad & Producto & Software & Se refiere a la protección de los datos médicos. La confidencialidad busca evitar el acceso a información por personas no autorizadas, mientras que la integridad protege los datos frente a modificaciones no autorizadas~\cite{iso25010}. \\ \hline
+E08 & Restricción de compatibilidad & Producto & Software & Establece Android 10 como versión mínima para ejecutar la aplicación móvil. Es una condición técnica que limita el entorno en el que podrá funcionar el software~\cite{iso29148}. \\ \hline
+E09 & Funcional & Producto & Software & Define cómo debe registrarse una cancelación realizada con menos de cuatro horas de anticipación. Es una regla de funcionamiento que debe aplicar la plataforma~\cite{iso29148}. \\ \hline
+E10 & Calidad: capacidad de interacción – inclusividad y operabilidad & Producto & Software & Se relaciona con la interacción de los pacientes adultos mayores con la aplicación. La inclusividad considera las necesidades de diferentes usuarios, mientras que la operabilidad se refiere a la facilidad para utilizar y controlar las funciones del producto~\cite{iso25010}. \\ \hline
+E11 & Restricción de plazo & Proceso & Sistema & Establece un tiempo máximo de seis meses para completar el proyecto. Limita la planificación y ejecución del proceso de desarrollo~\cite{iso29148}. \\ \hline
+E12 & Funcional & Producto & Software & Especifica que la plataforma debe cerrar automáticamente la sesión después de diez minutos de inactividad. Aunque contribuye a la seguridad, el enunciado describe una acción concreta que debe realizar el software~\cite{iso29148}. \\ \hline
+E13 & Funcional & Producto & Sistema & Define el funcionamiento del quiosco: recibir el número de identificación mediante una pantalla táctil y emitir un ticket. Se considera de sistema porque intervienen tanto el software como los dispositivos físicos~\cite{iso29148}. \\ \hline
+E14 & Calidad: fiabilidad – disponibilidad & Producto & Software & Establece que la plataforma debe estar operativa cuando los usuarios la necesiten. La disponibilidad se relaciona con la capacidad del producto de estar operativo y accesible cuando se requiere~\cite{iso25010}. \\ \hline
+E15 & Funcional & Producto & Software & Permite al director médico generar reportes mensuales de inasistencias por especialidad. Es una función específica que debe ofrecer la plataforma~\cite{iso29148}. \\ \hline
+E16 & Restricción del proceso & Proceso & Sistema & Establece que cada incremento debe ser validado con el director médico al finalizar una iteración de dos semanas. Determina una condición que debe seguirse durante el proceso de desarrollo~\cite{iso29148}. \\ \hline
+E17 & Restricción legal & Producto & Sistema & Exige cumplir la Ley Orgánica de Protección de Datos Personales del Ecuador. Es una obligación que condiciona el tratamiento de la información y el funcionamiento del sistema~\cite{iso29148}. \\ \hline
+E18 & Calidad: compatibilidad – interoperabilidad & Producto & Software & Establece que la plataforma debe intercambiar información con el sistema de facturación existente. La interoperabilidad se relaciona con la capacidad de intercambiar información y utilizarla entre diferentes productos~\cite{iso25010}. \\ \hline
+E19 & Calidad: fiabilidad – recuperabilidad & Producto & Sistema & Establece condiciones para recuperar el servicio después de una falla del servidor, sin perder las citas confirmadas. La recuperabilidad contempla restaurar los datos afectados y el estado esperado del sistema~\cite{iso25010}. \\ \hline
+E20 & Restricción del proceso & Proceso & Software & Obliga a que los cambios en el código sean revisados por otro integrante antes de incorporarse a la rama principal. Es una condición del procedimiento de desarrollo y control del software~\cite{iso29148}. \\ \hline
+\end{longtable}
+\endgroup
+
+

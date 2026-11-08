@@ -1,0 +1,115 @@
+% =====================================================================
+%  Taller de tipos de requisitos (ICR_QC_01 / TL01)
+%  Compilar con pdfLaTeX + Biber (configuración predeterminada de Overleaf)
+% =====================================================================
+\documentclass[11pt,a4paper]{article}
+
+% ---------- Codificación e idioma ----------
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[spanish,es-tabla]{babel}
+
+% ---------- Página ----------
+\usepackage[a4paper,left=2.5cm,right=2.5cm,top=2.5cm,bottom=2.5cm]{geometry}
+\usepackage{microtype}
+\usepackage{setspace}
+\setstretch{1.12}
+\setlength{\parskip}{0.5em}
+\setlength{\parindent}{0pt}
+
+% ---------- Tablas, figuras y color ----------
+\usepackage{xcolor}
+\usepackage{array}
+\usepackage{colortbl}
+\usepackage{longtable}
+\usepackage{ragged2e}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{enumitem}
+\usepackage{needspace}
+\usepackage{pdflscape}
+\usepackage[font=small,labelfont=bf,labelsep=period,skip=6pt]{caption}
+
+% ---------- Títulos y encabezados ----------
+\usepackage{titlesec}
+\titleformat{\section}{\Large\bfseries}{\thesection.}{0.6em}{}
+\titleformat{\subsection}{\large\bfseries}{\thesubsection.}{0.6em}{}
+\titlespacing*{\section}{0pt}{1.6em}{0.8em}
+\titlespacing*{\subsection}{0pt}{1.2em}{0.6em}
+
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small\itshape Taller de tipos de requisitos}
+\fancyhead[R]{\small\itshape ICR\_QC\_01}
+\fancyfoot[C]{\small\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0pt}
+
+% ---------- Bibliografía (citas numéricas estilo IEEE) ----------
+\usepackage{csquotes}
+\usepackage[backend=biber,style=ieee,sorting=none]{biblatex}
+\addbibresource{referencias.bib}
+\DefineBibliographyStrings{spanish}{url={Disponible en}}
+
+% ---------- Hipervínculos ----------
+\usepackage[colorlinks=true,linkcolor=black,citecolor=blue!50!black,urlcolor=blue!50!black,
+            pdftitle={Taller de tipos de requisitos},
+            pdfauthor={},
+            pdfsubject={Ingeniería de Requerimientos}]{hyperref}
+\usepackage{xurl}
+
+% ---------- Formato de tablas ----------
+\setlength{\tabcolsep}{3pt}
+\renewcommand{\arraystretch}{1.25}
+\newlength{\tw} % ancho útil de las columnas de una tabla
+\newcolumntype{L}[1]{>{\RaggedRight\arraybackslash}p{#1}}
+\newcommand{\encabezado}[1]{\textbf{#1}}
+\newcommand{\filaencabezado}{\rowcolor{gray!22}}
+
+% ---------- Marcador de imágenes (se sustituye al añadir el archivo) ----------
+% Uso: \capturaimagen{nombre-sin-extension}{texto del marcador}
+\newcommand{\capturaimagen}[2]{%
+  \IfFileExists{imagenes/#1.png}{\includegraphics[width=0.9\linewidth,height=0.45\textheight,keepaspectratio]{imagenes/#1.png}}{%
+  \IfFileExists{imagenes/#1.jpg}{\includegraphics[width=0.9\linewidth,height=0.45\textheight,keepaspectratio]{imagenes/#1.jpg}}{%
+  \IfFileExists{imagenes/#1.jpeg}{\includegraphics[width=0.9\linewidth,height=0.45\textheight,keepaspectratio]{imagenes/#1.jpeg}}{%
+  \IfFileExists{imagenes/#1.pdf}{\includegraphics[width=0.9\linewidth,height=0.45\textheight,keepaspectratio]{imagenes/#1.pdf}}{%
+  \fcolorbox{gray}{gray!8}{\parbox[c][5.5cm][c]{0.85\linewidth}{\centering\small\itshape #2}}}}}}}
+
+% ---------- Datos de la portada (editar aquí) ----------
+\newcommand{\datoUniversidad}{Universidad Técnica Estatal de Quevedo (UTEQ)}
+\newcommand{\datoFacultad}{Facultad de Ciencias de la Computación}
+\newcommand{\datoCarrera}{Ingeniería en Software}
+\newcommand{\datoAsignatura}{Ingeniería de Requerimientos}
+\newcommand{\datoCodigoActividad}{ICR\_QC\_01}
+\newcommand{\datoFormato}{TL01}
+\newcommand{\datoTipoActividad}{Formativa}
+\newcommand{\datoTaller}{Taller de tipos de requisitos}
+\newcommand{\datoTitulo}{Identificación y clasificación de tipos de requisitos}
+\newcommand{\datoEstudiante}{Rivera Rodriguez Joseph Jeremy}
+\newcommand{\datoNivel}{Quinto semestre}
+\newcommand{\datoParalelo}{A}
+\newcommand{\datoDocente}{GUERRERO ULLOA GLEISTON CICERON, PhD}
+\newcommand{\datoFecha}{7 de noviembre de 2026}
+
+\begin{document}
+
+% ---------- Portada (sin numeración) ----------
+\pagenumbering{gobble}
+\input{secciones/00_portada}
+\clearpage
+\pagenumbering{arabic}
+\setcounter{page}{1}
+\pagestyle{fancy}
+
+% ---------- Contenido ----------
+\input{secciones/01_clasificacion}
+\input{secciones/02_calidad}
+\input{secciones/03_comparacion}
+\input{secciones/04_evidencias}
+
+% ---------- Referencias ----------
+\printbibliography[heading=bibnumbered,title={Referencias bibliográficas}]
+
+\end{document}

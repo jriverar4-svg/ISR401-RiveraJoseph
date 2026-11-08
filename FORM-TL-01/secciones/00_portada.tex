@@ -1,0 +1,45 @@
+% Portada académica. Los datos se editan en el preámbulo de main.tex (comandos \dato...).
+\begin{titlepage}
+\thispagestyle{empty}
+\centering
+\setstretch{1.1}
+
+% Para añadir el escudo/logo de la universidad, coloque el archivo en imagenes/ y
+% descomente la siguiente línea:
+% \includegraphics[height=3cm]{imagenes/logo-utq.png}\\[1.2cm]
+
+\vspace*{1.2cm}
+
+{\huge\bfseries \datoUniversidad\par}
+\vspace{0.9cm}
+{\Large\bfseries \datoFacultad\par}
+\vspace{0.5cm}
+{\large Carrera de \datoCarrera\par}
+
+\vspace{1.0cm}
+\rule{0.75\linewidth}{0.8pt}\par
+\vspace{0.9cm}
+
+{\large\scshape \datoTaller\par}
+\vspace{0.5cm}
+{\LARGE\bfseries \datoTitulo\par}
+
+\vspace{0.9cm}
+\rule{0.75\linewidth}{0.8pt}\par
+\vspace{1.1cm}
+
+{\renewcommand{\arraystretch}{1.55}
+\small
+\begin{tabular}{@{}r@{\hspace{0.8em}}l@{}}
+  \textbf{Asignatura:}           & \datoAsignatura \\
+  \textbf{Tipo de actividad:}    & \datoTipoActividad \\
+  \textbf{Estudiante:}           & \datoEstudiante \\
+  \textbf{Nivel:}                & \datoNivel \\
+  \textbf{Paralelo:}             & \datoParalelo \\
+  \textbf{Docente:}              & \datoDocente \\
+\end{tabular}\par}
+
+\vfill
+{\normalsize\textbf{Fecha de entrega:} \datoFecha\par}
+\vspace{0.5cm}
+\end{titlepage}

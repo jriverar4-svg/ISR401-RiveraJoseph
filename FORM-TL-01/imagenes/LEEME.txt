@@ -1,0 +1,8 @@
+Coloque aquí las capturas de pantalla del punto 4 con estos nombres exactos
+(formato .png, .jpg, .jpeg o .pdf):
+
+  captura1.png  -> Figura 1. Consulta de apoyo sobre la clasificación de requisitos.
+  captura2.png  -> Figura 2. Consulta de apoyo sobre la reformulación de requisitos de calidad.
+  captura3.png  -> Figura 3. Consulta de apoyo sobre las características de calidad de ISO/IEC 25010:2023.
+
+Mientras no existan los archivos, el documento muestra un recuadro marcador en su lugar.
