@@ -1,0 +1,318 @@
+% =====================================================================
+% TA-IND-01 - ISO/IEC/IEEE 29148 y tipos de requisitos de un sistema conocido
+% Compilar con: pdflatex -> bibtex -> pdflatex -> pdflatex  (TeXStudio: F5 / "Compilar y ver")
+% =====================================================================
+\documentclass[10pt,a4paper]{article}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage[spanish,es-tabla]{babel}
+\usepackage[a4paper,margin=2.2cm]{geometry}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{xcolor}
+\usepackage{caption}
+\usepackage{enumitem}
+\usepackage{setspace}
+\usepackage{fancyhdr}
+\usepackage[hidelinks]{hyperref}
+\usepackage{url}
+
+% ---------------- DATOS DE LA PORTADA (EDITAR) ----------------
+\newcommand{\estudiante}{Rivera Rodriguez Joseph Jeremy}
+\newcommand{\paralelo}{Paralelo B}
+\newcommand{\docente}{Gleiston C. Guerrero-Ulloa, PhD}
+\newcommand{\fechaentrega}{11 de noviembre de 2026}
+% ----------------------------------------------------------------
+
+\hypersetup{pdftitle={TA-IND-01: IEEE 29148 y tipos de requisitos de Twitch},
+            pdfauthor={\estudiante}}
+
+\setlist{itemsep=2pt,topsep=3pt}
+\setlength{\parskip}{4pt}
+\setlength{\parindent}{0pt}
+\captionsetup{font=small,labelfont=bf}
+
+\newcolumntype{P}[1]{>{\raggedright\arraybackslash}p{#1}}
+
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{\small ISR-401 \textperiodcentered{} TA-IND-01}
+\rhead{\small Requisitos de Twitch}
+\cfoot{\small\thepage}
+\renewcommand{\headrulewidth}{0.3pt}
+
+% Figura con captura propia. Se da el nombre SIN extension; busca en figuras/ (y en la raiz)
+% con extensiones .png .jpg .jpeg .PNG .JPG .JPEG .pdf. Si no la encuentra, muestra un recuadro rojo.
+\newcommand{\tryfile}[1]{\ifx\found\empty\IfFileExists{#1}{\xdef\found{#1}}{}\fi}
+\newcommand{\figuraprop}[3]{%
+  \begin{figure}[htbp]
+    \centering
+    \def\found{}%
+    \tryfile{figuras/#1.png}\tryfile{figuras/#1.jpg}\tryfile{figuras/#1.jpeg}%
+    \tryfile{figuras/#1.PNG}\tryfile{figuras/#1.JPG}\tryfile{figuras/#1.JPEG}%
+    \tryfile{figuras/#1.pdf}\tryfile{#1.png}\tryfile{#1.jpg}\tryfile{#1.jpeg}%
+    \ifx\found\empty
+      \fbox{\parbox[c][3.5cm][c]{0.7\textwidth}{\centering\color{red}
+        Falta la captura propia: \detokenize{figuras/#1.png}}}%
+    \else
+      \includegraphics[width=0.7\textwidth,height=5.5cm,keepaspectratio]{\found}%
+    \fi
+    \caption{#2}\label{#3}
+  \end{figure}}
+
+\begin{document}
+
+% ======================= PORTADA =======================
+\begin{titlepage}
+  \centering
+  {\large\bfseries UNIVERSIDAD TÉCNICA ESTATAL DE QUEVEDO}\\[4pt]
+  {\large Facultad de Ciencias de la Ingeniería}\\[2pt]
+  {\large Carrera de Ingeniería en Software}\\[2.5cm]
+
+  {\Large\bfseries TA-IND-01}\\[8pt]
+  {\LARGE\bfseries ISO/IEC/IEEE 29148 y tipos de requisitos\\ de un sistema conocido}\\[8pt]
+  {\large Sistema analizado: Twitch}\\[2.5cm]
+
+  \begin{tabular}{r@{\hspace{1em}}l}
+    \textbf{Asignatura:}  & Ingeniería de Requerimientos (ISR-401) \\
+    \textbf{Período:}     & SPA 2026--2027 \\
+    \textbf{Estudiante:}  & \estudiante \\
+    \textbf{Paralelo:}    & \paralelo \\
+    \textbf{Docente:}     & \docente \\
+    \textbf{Fecha límite:} & \fechaentrega \\
+  \end{tabular}
+
+  \vfill
+  {\small Quevedo, Ecuador}
+\end{titlepage}
+
+\setcounter{page}{1}
+
+% ======================= 1. RESUMEN ANALÍTICO =======================
+\section{Resumen analítico de la norma ISO/IEC/IEEE 29148:2018}
+
+\subsection{¿Qué es un requisito bien formado?}
+La norma ISO/IEC/IEEE 29148:2018 establece lineamientos para desarrollar y gestionar los requisitos durante el ciclo de vida de un sistema o producto de software. Su objetivo es que las necesidades de los interesados puedan expresarse con claridad, analizarse, documentarse y, después, verificarse y validarse. Para este trabajo se consideran principalmente las cláusulas 5.2.4 a 5.2.8 \cite{iso29148}.
+
+De acuerdo con la cláusula 5.2.4, un requisito bien formado es una declaración que expresa una capacidad, condición o restricción que debe cumplir el sistema para resolver un problema, satisfacer una necesidad o alcanzar un objetivo \cite[cl.~5.2.4]{iso29148}. No basta con describir una idea general de lo que se espera del software: el requisito debe especificar qué se necesita y establecer las condiciones para comprobar su cumplimiento.
+
+Un requisito bien redactado identifica el sujeto y expresa qué debe hacer o qué condición debe satisfacer. Cuando corresponde, incluye condiciones medibles y límites que permitan evaluarlo. La norma utiliza el término \textit{shall} para expresar obligación; en español, este trabajo emplea «deberá».
+
+Por ejemplo, «el reproductor deberá iniciar rápidamente» no es una declaración suficientemente precisa, porque «rápidamente» admite varias interpretaciones. En cambio, «el reproductor deberá iniciar la transmisión en un máximo de tres segundos» permite definir una prueba y decidir si la condición se cumple.
+
+\subsection{Características de un requisito individual}
+La cláusula 5.2.5 establece nueve características para evaluar la calidad de cada requisito \cite[cl.~5.2.5]{iso29148}:
+\begin{enumerate}[label=\arabic*.]
+  \item \textbf{Necesario:} representa una necesidad real del sistema o de algún interesado.
+  \item \textbf{Apropiado:} tiene el nivel de detalle correspondiente a la etapa y al nivel de especificación.
+  \item \textbf{No ambiguo:} admite una sola interpretación razonable.
+  \item \textbf{Completo:} contiene la información necesaria para comprender lo solicitado.
+  \item \textbf{Singular:} expresa una sola obligación o condición, sin combinar requisitos independientes.
+  \item \textbf{Factible:} puede implementarse considerando las restricciones técnicas, económicas y de tiempo.
+  \item \textbf{Verificable:} permite comprobar su cumplimiento mediante inspección, análisis, demostración o prueba.
+  \item \textbf{Correcto:} representa adecuadamente la necesidad que pretende satisfacer.
+  \item \textbf{Conforme:} respeta las reglas y convenciones establecidas para documentar requisitos.
+\end{enumerate}
+Estas características permiten detectar problemas que afectarían el desarrollo. Un requisito puede describir una función necesaria y, aun así, ser difícil de comprobar si usa términos ambiguos o no establece condiciones de prueba. Del mismo modo, un requisito verificable puede no ser correcto si no responde a una necesidad real del usuario.
+
+\subsection{Características de un conjunto de requisitos}
+La cláusula 5.2.6 establece cinco características que debe cumplir el conjunto \cite[cl.~5.2.6]{iso29148}:
+\begin{itemize}
+  \item \textbf{Completo:} incluye todos los requisitos necesarios para definir el alcance previsto.
+  \item \textbf{Consistente:} los requisitos no se contradicen y usan términos, unidades y criterios de forma uniforme.
+  \item \textbf{Factible:} el conjunto puede implementarse con los recursos y restricciones disponibles.
+  \item \textbf{Comprensible:} está redactado de modo que los interesados lo interpreten sin confusión.
+  \item \textbf{Capaz de validarse:} permite comprobar que el sistema definido responde a las necesidades y objetivos de los interesados.
+\end{itemize}
+Evaluar el conjunto es necesario porque no basta con revisar cada requisito por separado: dos requisitos correctos de forma individual pueden entrar en conflicto al considerarse juntos, por ejemplo, un tiempo de respuesta muy bajo combinado con una operación que procesa un volumen elevado de información. La revisión debe considerar tanto la calidad de cada declaración como la relación entre ellas.
+
+\subsection{Expresiones ambiguas que deben evitarse}
+La cláusula 5.2.7 recomienda evitar palabras y expresiones que generen interpretaciones distintas \cite[cl.~5.2.7]{iso29148}. Entre ellas están los términos subjetivos como «rápido», «fácil», «intuitivo», «adecuado», «suficiente» o «de alta calidad» cuando no se acompañan de condiciones medibles. También deben evitarse:
+\begin{itemize}
+  \item superlativos como «el mejor» o «el más rápido» sin una referencia objetiva;
+  \item comparaciones que no indican contra qué se comparan;
+  \item pronombres cuyo referente no está claramente identificado;
+  \item expresiones abiertas como «si es posible», «cuando corresponda» o «según sea necesario»;
+  \item conectores ambiguos como «y/o»;
+  \item palabras absolutas como «todos», «siempre» y «nunca», cuando no pueden justificarse ni verificarse;
+  \item referencias incompletas que no indican documento, versión o apartado.
+\end{itemize}
+Por ejemplo, «el sistema deberá funcionar siempre» no fija una condición realista ni una forma de medirla; una redacción adecuada define un porcentaje de disponibilidad en un periodo específico.
+
+La cláusula 5.2.8 añade la conveniencia de asignar atributos a cada requisito, como identificador, versión, responsable, prioridad, riesgo, justificación y tipo \cite[cl.~5.2.8]{iso29148}. Estos atributos facilitan su administración y seguimiento durante el desarrollo.
+
+La importancia de estos criterios también aparece en la investigación sobre calidad de requisitos. Montgomery et~al. identifican la ambigüedad, la completitud, la consistencia y la corrección entre los atributos estudiados con mayor frecuencia en el campo \cite{montgomery2022}. Por su parte, Frattini et~al. destacan que mejorar la calidad de los requisitos ayuda a reducir la propagación de defectos hacia etapas posteriores del desarrollo \cite{frattini2023}.
+
+En conclusión, la norma muestra que un requisito no se redacta solo para describir una función, sino para expresar una necesidad de forma clara, completa y verificable. Aplicar estos criterios facilita la comunicación entre interesados, desarrolladores y quienes realizan las pruebas.
+
+% ======================= 2. GLOSARIO =======================
+\section{Glosario de diez términos de la cláusula 3}
+Los términos siguientes corresponden a conceptos definidos en la cláusula 3 de ISO/IEC/IEEE 29148:2018 \cite[cl.~3]{iso29148}. Las definiciones están parafraseadas y los ejemplos se elaboraron a partir del funcionamiento de Twitch.
+
+{\footnotesize
+\setlength{\tabcolsep}{3pt}
+\begin{longtable}{@{}c P{2.5cm} P{5.6cm} P{6.6cm}@{}}
+\caption{Glosario de términos de la cláusula 3.}\label{tab:glosario}\\
+\toprule
+\textbf{N.º} & \textbf{Término} & \textbf{Definición} & \textbf{Ejemplo aplicado a Twitch}\\
+\midrule
+\endfirsthead
+\toprule
+\textbf{N.º} & \textbf{Término} & \textbf{Definición} & \textbf{Ejemplo aplicado a Twitch}\\
+\midrule
+\endhead
+\bottomrule
+\endfoot
+1 & Stakeholder (parte interesada) & Persona u organización que puede afectar, verse afectada o percibirse afectada por el sistema. & Un creador de contenido es parte interesada porque usa Twitch para transmitir y comunicarse con su audiencia.\\
+2 & User (usuario) & Persona que interactúa con el sistema para alcanzar un objetivo. & Un espectador que ingresa a Twitch para ver una transmisión en directo.\\
+3 & Operator (operador) & Entidad humana o técnica que realiza actividades de operación del sistema. & El personal que supervisa los servicios e infraestructura que mantienen disponible la plataforma.\\
+4 & Requirement (requisito) & Declaración que expresa una necesidad o capacidad que debe cumplir un sistema, producto o servicio. & El sistema deberá permitir al espectador reproducir una transmisión en directo.\\
+5 & Requirements engineering (ingeniería de requisitos) & Disciplina que reúne las actividades relacionadas con los requisitos durante el ciclo de vida. & Identificar las necesidades de los espectadores, documentarlas y comprobar que la plataforma las atiende.\\
+6 & Requirements elicitation (obtención de requisitos) & Actividad de descubrir y reunir necesidades e información de las partes interesadas y otras fuentes. & Entrevistar a espectadores para conocer las dificultades que encuentran al buscar canales.\\
+7 & Verification (verificación) & Confirmación, mediante evidencia objetiva, de que se cumplen los requisitos especificados. & Ejecutar una prueba para comprobar si el reproductor inicia dentro del tiempo establecido.\\
+8 & Validation (validación) & Confirmación de que el sistema satisface las necesidades de uso previstas. & Comprobar con espectadores que pueden localizar y ver el contenido que necesitan.\\
+9 & Requirements traceability (trazabilidad de requisitos) & Capacidad de relacionar un requisito con su origen y con otros productos del ciclo de vida. & Relacionar el requisito del chat con la necesidad del usuario, el caso de prueba y el resultado obtenido.\\
+10 & Constraint (restricción) & Limitación que reduce las soluciones posibles. & Establecer que las pruebas de rendimiento se ejecuten en un navegador y equipo de referencia definidos previamente.\\
+\end{longtable}
+}
+
+% ======================= 3. REQUISITOS =======================
+\section{Formulación de quince requisitos para Twitch}
+
+\subsection{Descripción y alcance del sistema}
+Twitch es una plataforma digital que permite ver transmisiones en directo, interactuar mediante chats y consultar contenido audiovisual publicado por los creadores. El análisis se centra en las funciones que usa un espectador desde la versión web: buscar canales, reproducir transmisiones, enviar mensajes, ver grabaciones y compartir clips.
+
+Los requisitos propuestos no corresponden a especificaciones internas publicadas por Twitch. Constituyen una simulación académica elaborada para aplicar los criterios de ISO/IEC/IEEE 29148:2018 \cite{iso29148} y las características de calidad de ISO/IEC 25010:2023 \cite{iso25010}.
+
+\subsection{Distribución de los requisitos}
+Se proponen quince requisitos distribuidos en cinco tipos de la cláusula 5.2 (Tabla~\ref{tab:distribucion}). Los seis requisitos de calidad se clasifican según el modelo de producto de ISO/IEC 25010:2023 \cite{iso25010}.
+
+\begin{table}[htbp]
+\centering
+\caption{Distribución de los requisitos por tipo.}\label{tab:distribucion}
+\begin{tabular}{@{}lcl@{}}
+\toprule
+\textbf{Tipo de requisito} & \textbf{Cantidad} & \textbf{Identificadores}\\
+\midrule
+Funcionales      & 5 & RF-01 a RF-05\\
+Rendimiento      & 2 & RP-01 y RP-02\\
+Interfaz externa & 1 & RI-01\\
+Calidad          & 6 & RC-01 a RC-06\\
+Usabilidad       & 1 & RU-01\\
+\midrule
+\textbf{Total}   & \textbf{15} & \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+% ======================= 4. TABLA DE CLASIFICACIÓN =======================
+\section{Tabla de clasificación y criterios de aceptación}
+La Tabla~\ref{tab:clasificacion} reúne los quince requisitos en su versión corregida, con su tipo, la característica y subcaracterística de ISO/IEC 25010:2023 cuando aplica \cite{iso25010}, la métrica y el criterio de aceptación.
+
+{\scriptsize
+\setlength{\tabcolsep}{2.5pt}
+\begin{longtable}{@{}P{0.95cm} P{4.5cm} P{1.4cm} P{2.3cm} P{2.6cm} P{3.2cm}@{}}
+\caption{Clasificación de los requisitos y criterios de aceptación.}\label{tab:clasificacion}\\
+\toprule
+\textbf{ID} & \textbf{Enunciado} & \textbf{Tipo} & \textbf{Característica ISO/IEC 25010} & \textbf{Métrica} & \textbf{Criterio de aceptación}\\
+\midrule
+\endfirsthead
+\toprule
+\textbf{ID} & \textbf{Enunciado} & \textbf{Tipo} & \textbf{Característica ISO/IEC 25010} & \textbf{Métrica} & \textbf{Criterio de aceptación}\\
+\midrule
+\endhead
+\bottomrule
+\endfoot
+RF-01 & El sistema deberá mostrar al espectador una lista de canales que estén transmitiendo en directo en la página de inicio. & Funcional & Adecuación funcional & Resultado de la prueba funcional (aprobado/no aprobado) & Al abrir la página de inicio se muestra una lista de canales en directo.\\
+RF-02 & El sistema deberá permitir al espectador buscar canales por nombre y mostrar los resultados que coincidan con el texto ingresado. & Funcional & Adecuación funcional & Resultado de la prueba funcional (aprobado/no aprobado) & Al ingresar el nombre de un canal existente, los resultados incluyen ese canal.\\
+RF-03 & El sistema deberá permitir al espectador iniciar y pausar la reproducción de una transmisión en directo desde el reproductor del canal. & Funcional & Adecuación funcional & Resultado de la prueba funcional (aprobado/no aprobado) & El espectador inicia y pausa la transmisión desde el reproductor.\\
+RF-04 & El sistema deberá permitir al espectador autenticado enviar un mensaje de texto al chat de un canal cuando las reglas de participación del canal lo permitan. & Funcional & Adecuación funcional & Resultado de la prueba funcional (aprobado/no aprobado) & Un usuario autenticado y autorizado envía un mensaje y este aparece en el chat del canal.\\
+RF-05 & El sistema deberá permitir al espectador reproducir una grabación pasada cuando el canal la tenga almacenada y publicada. & Funcional & Adecuación funcional & Resultado de la prueba funcional (aprobado/no aprobado) & Una grabación publicada se abre y reproduce desde su canal.\\
+RP-01 & El sistema deberá iniciar la reproducción de una transmisión en un máximo de 3 s en al menos el 95\,\% de 100 pruebas, con conexión de 25 Mbps de descarga, 50 ms de latencia y un navegador de referencia actualizado. & Rendimiento & Eficiencia de desempeño: comportamiento temporal & Tiempo de inicio de reproducción (s); porcentaje de pruebas $\leq$ 3 s & En 100 ejecuciones controladas, al menos 95 inician en 3 s o menos.\\
+RP-02 & El sistema deberá mostrar un mensaje enviado al chat en un máximo de 1 s en al menos el 95\,\% de 100 pruebas, con conexión de 25 Mbps de descarga y 50 ms de latencia. & Rendimiento & Eficiencia de desempeño: comportamiento temporal & Tiempo de aparición del mensaje (s); porcentaje de pruebas $\leq$ 1 s & En 100 envíos de prueba, al menos 95 mensajes aparecen en 1 s o menos.\\
+RI-01 & El sistema deberá proporcionar una URL HTTPS para cada clip publicado y permitir al usuario copiarla desde la opción de compartir. & Interfaz externa & No aplica (requisito de interfaz, no de calidad) & Presencia de URL HTTPS copiable (sí/no) & Un clip publicado ofrece una URL HTTPS y al copiarla la dirección queda en el portapapeles.\\
+RC-01 & El servicio de reproducción deberá alcanzar una disponibilidad mensual igual o superior al 99,5\,\%, excluyendo las ventanas de mantenimiento programado comunicadas previamente. & Calidad & Fiabilidad: disponibilidad & Disponibilidad mensual (\%) & Disponibilidad mensual $\geq$ 99,5\,\% con la exclusión de mantenimiento definida.\\
+RC-02 & Después de restablecerse la conexión del usuario, el reproductor deberá reanudar la reproducción en un máximo de 10 s en al menos el 95\,\% de 100 pruebas de interrupción controlada. & Calidad & Fiabilidad: capacidad de recuperación & Tiempo de reanudación (s); porcentaje de pruebas $\leq$ 10 s & En 100 interrupciones controladas, al menos 95 reanudan en 10 s o menos.\\
+RC-03 & El sistema deberá impedir el acceso a datos privados de una cuenta por sesiones no autenticadas o cuentas sin autorización en el 100\,\% de los casos del conjunto de pruebas de acceso no autorizado definido. & Calidad & Seguridad: confidencialidad & Porcentaje de intentos de acceso no autorizado bloqueados & Ninguna sesión no autorizada obtiene datos privados en el conjunto de pruebas.\\
+RC-04 & La versión web deberá completar los flujos de búsqueda, reproducción y chat en las versiones estables más recientes de Chrome, Firefox y Edge, con al menos el 98\,\% de casos aprobados por navegador. & Calidad & Flexibilidad: adaptabilidad & Porcentaje de casos aprobados por navegador & Cada navegador alcanza al menos el 98\,\% de casos aprobados.\\
+RC-05 & El reproductor deberá permitir reproducir, pausar y ajustar el volumen mediante teclado, con resultado correcto en el 100\,\% de los casos de prueba definidos. & Calidad & Capacidad de interacción: operabilidad & Porcentaje de casos de prueba con teclado aprobados & Todos los casos definidos se completan correctamente.\\
+RC-06 & En una prueba de carga controlada, el servicio deberá admitir 1.000 sesiones simultáneas de una misma transmisión; al menos el 95\,\% deberá iniciar en 5 s o menos y la tasa de errores de reproducción deberá ser inferior al 1\,\%. & Calidad & Flexibilidad: escalabilidad & Sesiones que inician en $\leq$ 5 s (\%); tasa de errores (\%) & Con 1.000 sesiones, al menos 95\,\% inicia en 5 s o menos y los errores son $<$ 1\,\%.\\
+RU-01 & En una prueba con 10 participantes que no hayan usado Twitch antes, al menos 9 deberán localizar un canal en directo e iniciar su reproducción en un máximo de 3 min, sin ayuda externa. & Usabilidad & Capacidad de interacción: facilidad de aprendizaje & Participantes que completan la tarea en $\leq$ 3 min (de 10) & Al menos 9 de 10 completan la tarea en 3 min o menos, sin ayuda.\\
+\end{longtable}
+}
+
+\subsection{Consideraciones sobre los criterios de aceptación}
+Los valores numéricos son objetivos propuestos para esta simulación; no representan resultados de pruebas reales ni compromisos oficiales de Twitch. Algunos requisitos, como la disponibilidad mensual y las 1.000 sesiones simultáneas, necesitan información operativa o un entorno de pruebas de carga, por lo que no pueden verificarse solo desde una cuenta de espectador. Antes de ejecutar las pruebas se deberá definir el equipo de referencia, la versión del navegador, la conexión y el procedimiento de medición, para que los resultados sean repetibles y comparables.
+
+% ======================= 5. AUTOEVALUACIÓN =======================
+\section{Autoevaluación: versión inicial y versión corregida}
+Cada requisito se revisó contra las nueve características de la cláusula 5.2.5 y los términos que evita la cláusula 5.2.7 \cite{iso29148}. La Tabla~\ref{tab:autoeval} presenta la primera redacción, el problema detectado y la versión corregida.
+
+{\scriptsize
+\setlength{\tabcolsep}{2.5pt}
+\begin{longtable}{@{}P{0.95cm} P{2.6cm} P{4.4cm} P{7.4cm}@{}}
+\caption{Autoevaluación de los requisitos.}\label{tab:autoeval}\\
+\toprule
+\textbf{ID} & \textbf{Versión inicial} & \textbf{Problema detectado} & \textbf{Versión corregida}\\
+\midrule
+\endfirsthead
+\toprule
+\textbf{ID} & \textbf{Versión inicial} & \textbf{Problema detectado} & \textbf{Versión corregida}\\
+\midrule
+\endhead
+\bottomrule
+\endfoot
+RF-01 & Twitch mostrará directos. & «Directos» no delimita qué información se muestra ni a quién (incompleto). & El sistema deberá mostrar al espectador una lista de canales que estén transmitiendo en directo en la página de inicio.\\
+RF-02 & El usuario podrá encontrar canales fácilmente. & «Fácilmente» es subjetivo y no indica el mecanismo (ambiguo, no verificable). & El sistema deberá permitir al espectador buscar canales por nombre y mostrar los resultados que coincidan con el texto ingresado.\\
+RF-03 & El usuario podrá ver videos en vivo. & No identifica los controles que debe ofrecer el reproductor (incompleto). & El sistema deberá permitir al espectador iniciar y pausar la reproducción de una transmisión en directo desde el reproductor del canal.\\
+RF-04 & El usuario podrá conversar en el chat. & «Conversar» no define una acción concreta ni las condiciones de participación (ambiguo, incompleto). & El sistema deberá permitir al espectador autenticado enviar un mensaje de texto al chat de un canal cuando las reglas de participación del canal lo permitan.\\
+RF-05 & Se podrán ver videos antiguos. & «Antiguos» no identifica el tipo de contenido ni si está publicado (ambiguo). & El sistema deberá permitir al espectador reproducir una grabación pasada cuando el canal la tenga almacenada y publicada.\\
+RP-01 & El directo deberá cargar rápido. & «Rápido» es un término prohibido y no permite verificar. & El sistema deberá iniciar la reproducción de una transmisión en un máximo de 3 s en al menos el 95\,\% de 100 pruebas, con conexión de 25 Mbps de descarga, 50 ms de latencia y un navegador de referencia actualizado.\\
+RP-02 & Los mensajes aparecerán inmediatamente. & «Inmediatamente» no fija un tiempo medible ni condiciones de prueba. & El sistema deberá mostrar un mensaje enviado al chat en un máximo de 1 s en al menos el 95\,\% de 100 pruebas, con conexión de 25 Mbps de descarga y 50 ms de latencia.\\
+RI-01 & Los clips podrán compartirse. & No especifica el mecanismo para compartir (incompleto). & El sistema deberá proporcionar una URL HTTPS para cada clip publicado y permitir al usuario copiarla desde la opción de compartir.\\
+RC-01 & Twitch deberá estar disponible siempre. & «Siempre» es absoluto y no define periodo ni exclusiones. & El servicio de reproducción deberá alcanzar una disponibilidad mensual igual o superior al 99,5\,\%, excluyendo las ventanas de mantenimiento programado comunicadas previamente.\\
+RC-02 & El reproductor se recuperará rápido si se pierde Internet. & «Rápido» no define el tiempo ni cuándo empieza a medirse. & Después de restablecerse la conexión del usuario, el reproductor deberá reanudar la reproducción en un máximo de 10 s en al menos el 95\,\% de 100 pruebas de interrupción controlada.\\
+RC-03 & Los datos privados estarán protegidos. & «Protegidos» no define el comportamiento esperado ni cómo comprobarlo. & El sistema deberá impedir el acceso a datos privados de una cuenta por sesiones no autenticadas o cuentas sin autorización en el 100\,\% de los casos del conjunto de pruebas de acceso no autorizado definido.\\
+RC-04 & Twitch funcionará en los navegadores principales. & «Principales» no identifica navegadores ni porcentaje de éxito. & La versión web deberá completar los flujos de búsqueda, reproducción y chat en las versiones estables más recientes de Chrome, Firefox y Edge, con al menos el 98\,\% de casos aprobados por navegador.\\
+RC-05 & Se podrá usar Twitch sin mouse. & No delimita las funciones ni cómo verificarlas. & El reproductor deberá permitir reproducir, pausar y ajustar el volumen mediante teclado, con resultado correcto en el 100\,\% de los casos de prueba definidos.\\
+RC-06 & El sistema soportará muchos espectadores. & «Muchos» no define cantidad de usuarios ni nivel de rendimiento. & En una prueba de carga controlada, el servicio deberá admitir 1.000 sesiones simultáneas de una misma transmisión; al menos el 95\,\% deberá iniciar en 5 s o menos y la tasa de errores de reproducción deberá ser inferior al 1\,\%.\\
+RU-01 & Cualquier persona entenderá cómo ver un directo. & «Cualquier persona» es absoluto y «entenderá» no es observable ni medible. & En una prueba con 10 participantes que no hayan usado Twitch antes, al menos 9 deberán localizar un canal en directo e iniciar su reproducción en un máximo de 3 min, sin ayuda externa.\\
+\end{longtable}
+}
+
+% ======================= 6. EVIDENCIAS =======================
+\section{Evidencias del sistema seleccionado}
+Las capturas siguientes son propias, tomadas directamente desde la versión web de Twitch, y respaldan los requisitos descritos. La Figura~\ref{fig:inicio} respalda RF-01 y RF-02; la Figura~\ref{fig:directo}, RF-03, RF-04 y RC-05; y la Figura~\ref{fig:clips}, RF-05 y RI-01.
+
+\figuraprop{captura01_inicio}{Página principal de Twitch con canales en directo.}{fig:inicio}
+\figuraprop{captura02_directo}{Reproductor de un canal en directo y su chat.}{fig:directo}
+\figuraprop{captura03_clips}{Grabaciones pasadas o clips de un canal.}{fig:clips}
+
+% ======================= 7. REFLEXIÓN =======================
+\section{Reflexión}
+Al realizar este trabajo se comprendió que escribir requisitos no consiste solo en enumerar funciones. Una frase puede parecer clara para quien la redacta y resultar ambigua para quien debe desarrollarla o probarla. Indicar que una transmisión debe cargar «rápido» no permite decidir si el resultado es aceptable; establecer un tiempo máximo y las condiciones de prueba sí permite obtener evidencia.
+
+También se distinguió que los requisitos funcionales describen las acciones o servicios del sistema, mientras que los de calidad establecen condiciones sobre su comportamiento y propiedades. La clasificación con ISO/IEC 25010:2023 \cite{iso25010} ayuda a organizar esos aspectos en características como fiabilidad, seguridad, flexibilidad y capacidad de interacción.
+
+Formular un requisito verificable no significa que el sistema ya lo cumpla: es necesario ejecutar las pruebas y analizar los resultados. En el caso de Twitch, requisitos como la disponibilidad mensual o las 1.000 sesiones simultáneas exigen datos internos o un entorno de pruebas controlado.
+
+% TODO (OBLIGATORIO): la guía pide indicar QUÉ TIPO de requisito costó más formular y POR QUÉ.
+% Escriba aquí 3 a 5 líneas propias, por ejemplo sobre los requisitos de calidad cuantificados
+% (qué métrica elegir, cómo justificar el umbral) frente a los funcionales.
+
+En conclusión, aplicar la norma permite redactar requisitos más claros, reducir interpretaciones divergentes y fijar criterios que faciliten la verificación y validación del software.
+
+% ======================= 8. DECLARACIÓN DE USO DE IA =======================
+\section{Declaración de uso de inteligencia artificial}
+% EDITAR con la información real y verdadera de su uso.
+\textbf{Herramienta:} Claude (Anthropic), versión: \textit{indicar}. \textbf{Propósito:} apoyo en la estructura del código \LaTeX{} (preámbulo, portada, tablas y organización de archivos). \textbf{Verificación:} compilación del proyecto en TeXStudio con MiKTeX y revisión manual del contenido contra el trabajo propio y las fuentes citadas.
+
+% ======================= REFERENCIAS =======================
+\bibliographystyle{IEEEtran}
+\bibliography{referencias}
+
+\end{document}

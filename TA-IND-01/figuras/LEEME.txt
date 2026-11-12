@@ -1,0 +1,5 @@
+Coloque aqui sus capturas propias de Twitch con estos nombres (minusculas):
+  captura01_inicio.png   (pagina principal)
+  captura02_directo.png  (reproductor y chat)
+  captura03_clips.png    (grabaciones o clips)
+Tambien se aceptan .jpg, .jpeg y .pdf. Puede dejar este archivo aqui.
